@@ -17,7 +17,7 @@ class AppRouter {
       case IntroScreen:
         return MaterialPageRoute(builder: (_) => const Intro_Screen());
       case HomeScreen:
-        return MaterialPageRoute(builder: (_) => const Home_Screen());
+        return MaterialPageRoute(builder: (_) => Home_Screen());
       case CameraScreen:
         return MaterialPageRoute(builder: (_) => const Camera_Screen());
       case LearnHeroScreen:

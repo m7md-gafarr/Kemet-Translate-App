@@ -1,14 +1,15 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:kemet_translate/state%20management/bloc/Check%20connection/check_connection_cubit.dart';
 import 'package:kemet_translate/state%20management/bloc/translate/translate_cubit_cubit.dart';
 import 'package:kemet_translate/constant/string.dart';
 import 'package:kemet_translate/generated/l10n.dart';
 import 'package:kemet_translate/state%20management/provider/language.dart';
 import 'package:kemet_translate/view/app_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kemet_translate/view/screen/test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,6 +30,9 @@ void main() async {
         providers: [
           BlocProvider(
             create: (context) => TranslateCubit(),
+          ),
+          BlocProvider(
+            create: (context) => CheckConnectionCubit(),
           ),
         ],
         child: KemetTranslateApp(appRouter: AppRouter()),

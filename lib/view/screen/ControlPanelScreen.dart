@@ -1,9 +1,11 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kemet_translate/constant/string.dart';
 import 'package:kemet_translate/generated/l10n.dart';
 import 'package:kemet_translate/model/dashboard.dart';
+import 'package:kemet_translate/state%20management/bloc/Check%20connection/check_connection_cubit.dart';
 import 'package:kemet_translate/view/widget/CheckinternetWidget.dart';
 import 'package:kemet_translate/view/widget/ScaffoldWidget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -24,21 +26,15 @@ class _ControlPanal_ScreenState extends State<ControlPanal_Screen> {
       enable: true,
       format: 'point.x : point.y',
     );
-    CheckConnectivity();
 
     super.initState();
   }
 
-  void CheckConnectivity() async {
-    await Connectivity().checkConnectivity();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: Connectivity().onConnectivityChanged.map((event) => event.first),
-      builder: (context, snapshot) {
-        if (snapshot.hasData && snapshot.data != ConnectivityResult.none) {
+    return BlocBuilder<CheckConnectionCubit, CheckConnectionState>(
+      builder: (context, state) {
+        if (state is CheckConnectionHasInternet) {
           return BodyAndAppBarWidget(
             text: S.of(context).drawer_3,
             children: [
@@ -154,15 +150,23 @@ class _ControlPanal_ScreenState extends State<ControlPanal_Screen> {
               )
             ],
           );
-        } else {
+        } else if (state is CheckConnectionNoInternet) {
           return BodyAndAppBarWidget(
             text: S.of(context).drawer_3,
             children: [
               CheckInternetWidget(
-                onPressed: CheckConnectivity,
+                onPressed: () {
+                  context
+                      .read<CheckConnectionCubit>()
+                      .checkInitialConnectivity();
+                },
               ),
             ],
           );
+        } else {
+          return BodyAndAppBarWidget(
+              text: S.of(context).drawer_3,
+              children: const [Center(child: CircularProgressIndicator())]);
         }
       },
     );

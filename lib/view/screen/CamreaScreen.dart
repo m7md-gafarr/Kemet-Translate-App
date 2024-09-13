@@ -102,12 +102,12 @@ class _CameraScreenState extends State<Camera_Screen> {
                     )
                   : ElevatedButton(
                       onPressed: () async {
-                        String text =
-                            await BlocProvider.of<TranslateCubit>(context)
-                                .TranslateFunImage(image: _image!);
-                        Navigator.pop(context, text);
+                        // String text =
+                        //     await BlocProvider.of<TranslateCubit>(context)
+                        //         .TranslateFunImage(image: _image!);
+                        // Navigator.pop(context, text);
 
-                        // Navigator.pop(context, "");
+                        Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: PrimaryColor,

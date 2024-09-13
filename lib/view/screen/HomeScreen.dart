@@ -1,9 +1,11 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kemet_translate/constant/string.dart';
 import 'package:kemet_translate/model/translate.dart';
+import 'package:kemet_translate/state%20management/bloc/Check%20connection/check_connection_cubit.dart';
 import 'package:kemet_translate/state%20management/provider/language.dart';
 import 'package:kemet_translate/view/screen/TranslateScreen.dart';
 
@@ -11,24 +13,10 @@ import 'package:kemet_translate/view/widget/CheckinternetWidget.dart';
 import 'package:kemet_translate/view/widget/ListDeawerWidget.dart';
 import 'package:provider/provider.dart';
 
-class Home_Screen extends StatefulWidget {
-  const Home_Screen({super.key});
-
-  @override
-  State<Home_Screen> createState() => _Home_ScreenState();
-}
-
-class _Home_ScreenState extends State<Home_Screen> {
+class Home_Screen extends StatelessWidget {
   TranslateModel? translateModel;
-  @override
-  void initState() {
-    super.initState();
-    CheckConnectivity();
-  }
 
-  void CheckConnectivity() async {
-    await Connectivity().checkConnectivity();
-  }
+  Home_Screen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,21 +38,37 @@ class _Home_ScreenState extends State<Home_Screen> {
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: StreamBuilder<ConnectivityResult>(
-              stream: Connectivity()
-                  .onConnectivityChanged
-                  .map((event) => event.first),
-              builder: (context, snapshot) {
-                if (snapshot.hasData &&
-                    snapshot.data != ConnectivityResult.none) {
+
+            child: BlocBuilder<CheckConnectionCubit, CheckConnectionState>(
+              builder: (context, state) {
+                if (state is CheckConnectionHasInternet) {
                   return const Translate_Screen();
-                } else {
+                } else if (state is CheckConnectionNoInternet) {
                   return CheckInternetWidget(
-                    onPressed: CheckConnectivity,
+                    onPressed: () {
+                      context
+                          .read<CheckConnectionCubit>()
+                          .checkInitialConnectivity();
+                    },
                   );
+                } else {
+                  return const Center(child: CircularProgressIndicator());
                 }
               },
             ),
+            // child: StreamBuilder<ConnectivityResult>(
+            //   stream: Connectivity().onConnectivityChanged,
+            //   builder: (context, snapshot) {
+            //     if (snapshot.hasData &&
+            //         snapshot.data != ConnectivityResult.none) {
+            //       return const Translate_Screen();
+            //     } else {
+            //       return CheckInternetWidget(
+            //         onPressed: CheckConnectivity,
+            //       );
+            //     }
+            //   },
+            // ),
           ),
         ),
       ),

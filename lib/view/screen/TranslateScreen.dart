@@ -92,15 +92,17 @@ class _HomeBodyWidgetState extends State<Translate_Screen> {
                   controller: _controller1,
                   textAlign: IsArabic() ? TextAlign.right : TextAlign.left,
                   onChanged: (p0) {
-                    BlocProvider.of<TranslateCubit>(context)
-                        .TranslateFunText(arabicText: p0);
-
                     if (_controller1.text != "") {
+                      BlocProvider.of<TranslateCubit>(context)
+                          .TranslateFunText(arabicText: p0);
                       setState(() {
                         _visible = true;
                       });
                     } else {
-                      _visible = false;
+                      _controller2.text = "";
+                      setState(() {
+                        _visible = false;
+                      });
                     }
                   },
                 ),
@@ -219,6 +221,7 @@ class _HomeBodyWidgetState extends State<Translate_Screen> {
                     }
                   },
                   builder: (context, state) {
+                    print("Rebuild Textfield");
                     return TextFieldWidget(
                       textAlign: IsArabic() ? TextAlign.left : TextAlign.right,
                       hintText: "",
@@ -238,39 +241,6 @@ class _HomeBodyWidgetState extends State<Translate_Screen> {
                             if (_controller2.text.isNotEmpty) {
                               Clipboard.setData(
                                   ClipboardData(text: _controller2.text));
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  backgroundColor: Colors.transparent,
-                                  elevation: 0,
-                                  behavior: SnackBarBehavior.floating,
-                                  margin: EdgeInsets.only(
-                                    bottom: MediaQuery.of(context)
-                                            .viewInsets
-                                            .bottom +
-                                        20,
-                                    right: 100,
-                                    left: 100,
-                                  ),
-                                  content: Container(
-                                    padding: const EdgeInsets.all(5),
-                                    decoration: const BoxDecoration(
-                                      color: SubColor,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(25)),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        S.of(context).home_4,
-                                        style: const TextStyle(
-                                          color: WhiteColor,
-                                          fontFamily: SubFont,
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
                             }
                           },
                           icon: const Icon(
@@ -318,7 +288,7 @@ class _HomeBodyWidgetState extends State<Translate_Screen> {
                                     ),
                                     child: const Center(
                                       child: Text(
-                                        "ٍتم اضافتها",
+                                        "تم اضافتها",
                                         style: TextStyle(
                                           color: WhiteColor,
                                           fontFamily: SubFont,

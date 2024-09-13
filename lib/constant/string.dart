@@ -30,8 +30,9 @@ const String SubFont = "Cairo";
 
 ////////////////////////////////////////////////
 
-const String ApiKey = "http://10.0.2.2:5000";
-// const String ApiKey = "https://kemet-ara-eng-d85608881812.herokuapp.com";
+// const String ApiKey = "http://192.168.1.5:5000";
+// const String ApiKey = "http://10.0.2.2:5000";
+const String baseUrl = "https://kemet-ara-eng-d85608881812.herokuapp.com";
 
 ////////////////////////////////////////////////
 
