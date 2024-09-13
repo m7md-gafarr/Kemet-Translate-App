@@ -1,0 +1,3 @@
+class FavtranslateModel {
+  //  final String
+}
