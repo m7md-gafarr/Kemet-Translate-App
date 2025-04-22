@@ -1,16 +1,19 @@
-# kemet_translate
+# 🏺 Kemet-Translate – Arabic to Hieroglyphic Translator
 
-A new Flutter project.
+**Kemet-Translate** is a unique Flutter app that translates Arabic text into ancient Egyptian hieroglyphs, with support for both text and image input. It’s designed for anyone interested in Egyptology, education, or cultural heritage.
 
-## Getting Started
+## 🔍 Features:
+- ✍️ Translate **Arabic text** to **Hieroglyphics**
+- 📷 Translate from **images** (upload or capture photo)
+- 📤 **Share** or 📋 **copy** the translated text
+- 🌐 **Bilingual UI**: supports both Arabic and English
+- 🖼️ Clean interface with accurate hieroglyphic rendering
 
-This project is a starting point for a Flutter application.
+## 💡 Use Cases:
+- Great for students, educators, and history lovers
+- Promotes cultural awareness and ancient language learning
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🚀 Tech Stack:
+- Flutter & Dart
+- OCR (for image translation)
+- Custom Arabic-to-Hieroglyphic mapping system
